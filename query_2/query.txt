@@ -51,6 +51,35 @@ Selezionare tutti i corsi in cui insegna Fulvio Amato (id=44)
     WHERE `teachers`.`id`= 44;
 
 Selezionare tutti gli studenti con i dati relativi al corso di laurea a cui sono iscritti e il relativo dipartimento, in ordine alfabetico per cognome e nome
+    SELECT `students`.`id` AS `student_id`,
+        `students`.`name` AS `student_name`,
+        `students`.`surname` AS `student_surname`,
+        `degrees`.`id` AS `degree_id`,
+        `degrees`.`name` AS `degrre_name`,
+        `departments`.`id` AS `departments_id`,
+        `departments`.`name` AS `departments_name`
+    FROM `students`
+    JOIN `degrees`
+    ON `students`.`degree_id`= `degrees`.`id`
+    JOIN `departments`
+    ON `degrees`.`department_id` = `departments`.`id`
+    ORDER BY `students`.`name`,`students`.`surname` DESC;
+
 Selezionare tutti i corsi di laurea con i relativi corsi e insegnanti
+    SELECT `degrees`.`name` AS `nome_corso_di_laurea`,
+        `degrees`.`id` AS `id_corso_di_laurea`,
+        `courses`.`name` AS `nome_corso`,
+        `courses`.`id` AS `id_corso`,
+        `teachers`.`name` AS `nome_insegnante`,
+        `teachers`.`id` AS `id_insegnante`
+    FROM `courses`
+    JOIN `degrees`
+    ON `courses`.`degree_id` = `degrees`.`id`
+    JOIN `course_teacher`
+    ON `course_id` = `courses`.`id`
+    JOIN `teachers`
+    ON `teacher_id` = `teachers`.`id`
+    ORDER BY `degrees`.`name`;
+
 Selezionare tutti i docenti che insegnano nel Dipartimento di Matematica (54)
 BONUS: Selezionare per ogni studente quanti tentativi d’esame ha sostenuto per superare ciascuno dei suoi esami
